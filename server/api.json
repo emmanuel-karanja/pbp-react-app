@@ -2,9 +2,9 @@
   "candidates":[
     {
       "id":1,
-      "firstname": "John",
-      "lastname" :"Rambo",
-      "email":"johnranbo@mail.com",
+      "firstname": "Juan",
+      "lastname" :"Ramos",
+      "email":"uanramos@mail.com",
       "resumeId" : 1,
       "YearsOfExperience":13
     },
@@ -13,16 +13,32 @@
       "firstname": "Yuen",
       "lastname" :"Biao",
       "email":"chopsocky@mail.com",
-      "resumeId" : 2,
+      "resumeId" : "",
       "YearsOfExperience":2
     },
     {
       "id":3,
       "firstname": "Mike",
       "lastname" :"Murimi",
-      "email":"oneman@mail.com",
-      "resumeId" : 1,
+      "email":"onemanmariachi@mail.com",
+      "resumeId" : 2,
       "YearsOfExperience":5
+    },
+    {
+      "id":4,
+      "firstname": "Lex",
+      "lastname" :"Luther",
+      "email":"krypto@mail.com",
+      "resumeId" : "",
+      "YearsOfExperience":2
+    },
+    {
+      "id":5,
+      "firstname": "Chilli",
+      "lastname" :"Palmer",
+      "email":"getsmart@mail.com",
+      "resumeId" : null,
+      "YearsOfExperience":7
     }
   ],
   "jobs":[

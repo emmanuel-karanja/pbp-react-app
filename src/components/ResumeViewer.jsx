@@ -9,7 +9,8 @@ import "react-pdf/dist/Page/AnnotationLayer.css";
 
 //this component renders the pdf format CV/resume
 //it has two nav-style button because most CVs will often be more than one
-//page
+//page. The buttons allows easy navigation from page to page
+
 export default class ResumeViewer extends Component{
    constructor(props){
    super(props);
@@ -29,9 +30,9 @@ export default class ResumeViewer extends Component{
 
   render(){
    const {numPages,pageNumber}=this.state;
-   //resume is a required prop string that will be a url to the document.
+   //resume is a required prop string that will be a url string to the document.
    //it'll most likely be fetched from an S3 bucket in a production implementation
-   const {resume}=this.props;
+   const {resumeUrl}=this.props;
 
    return(
     <div>
@@ -41,9 +42,9 @@ export default class ResumeViewer extends Component{
      </nav>
       <div style={{width: 500}}>
          <Document
-           file={resume}
+           file={resumeUrl}
            onLoadSuccess={this.onDocumentLoadSucess}>
-          <Page pageNumber={pageNumber with={500}/>
+          <Page pageNumber={pageNumber} width={500}/>
          </Document>
       </div> 
       <p>
@@ -54,7 +55,7 @@ export default class ResumeViewer extends Component{
   }
 }
 
-//prop types
+//prop types for prop validation
 ResumeViewer.propTypes={
-    resume: PropTypes.string.isRequired,
+    resumeUrl: PropTypes.string.isRequired,
  }
