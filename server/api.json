@@ -1,0 +1,97 @@
+{
+  "candidates":[
+    {
+      "id":1,
+      "firstname": "John",
+      "lastname" :"Rambo",
+      "email":"johnranbo@mail.com",
+      "resumeId" : 1,
+      "YearsOfExperience":13
+    },
+    {
+      "id":2,
+      "firstname": "Yuen",
+      "lastname" :"Biao",
+      "email":"chopsocky@mail.com",
+      "resumeId" : 2,
+      "YearsOfExperience":2
+    },
+    {
+      "id":3,
+      "firstname": "Mike",
+      "lastname" :"Murimi",
+      "email":"oneman@mail.com",
+      "resumeId" : 1,
+      "YearsOfExperience":5
+    }
+  ],
+  "jobs":[
+    {
+      "id":1,
+      "title":"Python Developer",
+      "description":"python developer with 5 years of experience"
+    },
+    {
+      "id":2,
+      "title":"ASP.NET Core Developer",
+      "description":"ASP.NET Core ninja deft in Web API development"
+    },
+    {
+      "id":3,
+      "title":"Angualr UX/UI Engineer",
+      "description":"Angular developer with 5 years of experience,fluent in CSS"
+    }
+  ],
+  "applications":[
+    {
+      "id":1,
+      "jobId":1,
+      "candidateId":1,
+      "date":"01-01-2021"
+    },
+    {
+      "id":2,
+      "jobId":1,
+      "candidateId":2,
+      "date":"10-01-2021"
+    },
+    {
+      "id":3,
+      "jobId":3,
+      "candidateId":3,
+      "date":"10-01-2021"
+    }
+  ],
+  "resumes":[
+    {
+      "id":1,
+      "candidateId":1,
+      "url": "resume2"
+    },
+    {
+      "id":2,
+      "candidateId":3,
+      "url": "resume1"
+    }
+  ],
+  "comments":[
+    {
+      "id":1,
+      "resumeId":1,
+      "content":"this one seems over-qualified",
+      "date":"11-01-2021"
+    },
+    {
+      "id":2,
+      "resumeId":1,
+      "content":"seems to have majored in ass-kicking and minored in coding",
+      "date":"12-01-2021"
+    },
+    {
+      "id":3,
+      "resumeId":2,
+      "content":"pushed forward for further perusal",
+      "date":"13-01-2021"
+    }
+  ]
+}
