@@ -108,27 +108,37 @@ This is a small list of libraries I used with a brief explanation why:
 
 ## ON REDUX
 
-Due the limited scope of this demo, I didn't find any justification reason to use a state container like redux. The main component PbpApp.jsx manages its own state locally and acts as the container component for all the others with the
-exception  of CandidateList.jsx and ResumeViewer.jsx, for the sake of efficiency, it would be better to load the entire
-tree and store it in the redux store(i.e. a candidate, along with resume, and comments). That would most definitely make it perform faster and we can have a less chatty interface.
+Due to the limited scope of this demo, I didn't find any justifiable reason to use a state container like redux. The main component PbpApp.jsx manages its own state locally and acts as the container component for all the others with the
+exception  of CandidateList.jsx and ResumeViewer.jsx which have local ephemeral state, for the sake of efficiency, it would be better to load the entire remote state
+tree appertaining to each candidate and store it in the redux store(i.e. a candidate, along with resume, and comments). That would most definitely make it perform faster and we can have a less chatty interface.
 
 ## ON REACT Hooks
 
-The stateful components(those that extend React.Component) could have easily be done with React Hooks(useEffect and
+The stateful components(those that extend React.Component) could have easily been done with React Hooks(useEffect and
 useState) this was just a question of what I started out with.
 
 
 ## POSSIBLE IMPROVEMENTS OF THE DEMO
+
 There are a few improvements that could be made, this is in regard to the Client application not
 the server for the current server is nothing but a mock:
 
 1. Unit testing using 'react-testing-library'. The best way to develop components is to
    write the tests first and build them from there. This library makes it exceedingly simple to do some
    because it allows the developer to write the tests from the perspective of a user.
-2. The components could be made more compatible with smaller screens.
-3. For a larger application, I prefer separate container components from the presentation components. Any side-effects
-   would be done via a dedicate client side service layer. Components would not call the API functions directly,
-   they'd be invoked via redux-thunks or redux-sagas and local state updated. Over and above using thunks for side-effects
-   I also like to use an additional layer of indirection via custom hooks. This is because there are already very
-   many, very well tested hooks out there in the community that provide a high starting point for most of the functionality required in an app. I find that about 80% of the app is common stuff and about 20% is the unique,
-   competitive advantage stuff. What I prefer at the beginning of a project is to do the 80% in about 20% of the time,so that I am left with more time to tackle the unique stuff, more time to experiment and test.
+2. A much most consistent look and feel especially one that allows devices with different screen sizes.
+3. For a larger application, I prefer to separate container components from the presentation components. I like having  many simple functional/presentation components and a few container/stateful components. Any side-effects
+   would be done via a dedicated client side service layer in the form of redux-thunks or redux-sagas. Components would not call the REST API functions directly,
+   they'd be invoked via the redux-thunks or redux-sagas and local state updated. The container components would then be
+   connected to the redux-state container via connect(from 'react-redux' or via useDispatch and useSelector 'reselect' library could be used in conjunction with 'fast-deep-equal' to query state).  
+   
+   Over and above using thunks for side-effects
+   I also like to use an additional layer of indirection via custom hooks. Each custom hook would encapsulate a given state an side-effect e.g. useLocalStorage is a hook to make it easy to use localStorage for storing say the JWT token(though cookies are much safer this). This is because there are already very
+   many, very well tested hooks out there in the community that provide a high starting point for most of the functionality required in an app. I find that about 80% of the app is common house-keeping work and about 20% is the unique,
+   competitive advantage stuff. What I prefer at the beginning of a project is to do the 80% in about 20% of the time,so that I am left with more time to tackle the unique stuff, more time to experiment and test it.
+4. Provide CRUD UIs for jobs, applications, questions etc This administrative work could easily be managed by leveraging a component like 'react-admin' to do the dashboard quickly.
+5.  Authentication and authorization. Especially usingg Bearer token stored in the cookie(not in the state object).
+     On the server side all it requires is implementation of authentication middleware and authorization middleware functions. An axios client would be created and the cookie set within it(or the header should the JWT be preferred to be sent via the header).
+6. String constants e.g. URLs would be stored in 'env' and a config object used to load them. Alternatively, they
+   can be stored in the form of  const BASE_URL='http://localhost:5000' etc, so that if the URL changes it won't
+   affect the code much.
