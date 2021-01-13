@@ -6,13 +6,13 @@ import ResumeViewer from './ResumeViewer';
 
 
 
-export default class CandidateDropDownList extends Component{
+export default class PbpApp extends Component{
  constructor(){
      super();
     this.state={
        currentSelectedId:null,
        candidates:[],
-       error:null,
+       error:"",
        hasError:false,
        currentCandidate:null
     }
@@ -28,7 +28,7 @@ export default class CandidateDropDownList extends Component{
              this.setState({candidates:response.data,hasError:false});
              console.log(response);
          }).catch(error=>{
-             this.setState({error:error.data, hasError:true});
+             this.setState({error:error.message, hasError:true});
              console.log(error);
          });
  }
@@ -37,18 +37,22 @@ export default class CandidateDropDownList extends Component{
     this.setState({currentSelectedId: selectedOption.value});
     let candidate=this.state.candidates.find(c=>c.id===selectedOption.value);
     this.setState({currentCandidate: candidate});
-    console.log(`current candidate ${candidate}`);
  }
 
  render(){
      //destructure
-     const {candidates,currentSelectedId,hasError,currentCandidate}=this.state;
+     const {candidates,currentSelectedId,hasError,currentCandidate,error}=this.state;
 
      //create an options key-value pairs array to be used with the
      //select component.
      const options=candidates.map(c=>{ return{value:c.id,label: c.firstname+' '+c.lastname}});
      return(
-         <div className="container">
+         <div className="container justify-content-center">
+            <div className ="dark"><h1>Pbp React Tech-Assessment App</h1></div>
+
+         {hasError && <div className="alert alert-danger" role="alert">
+                         Could not load candidates error: {error}
+                      </div>}
           {options && !hasError && <div style={{width:300}}>
             Candidate:
             <Select options={options}
@@ -63,7 +67,9 @@ export default class CandidateDropDownList extends Component{
                 {currentCandidate.resumeId?
                    <ResumeViewer candidate={currentCandidate}/>
                     :
-                   <p>The Selected Candidate {currentCandidate.firstname+' '+currentCandidate.lastname} does NOT have a resume uploaded</p>       
+                    <div className="alert alert-info" role="alert">
+                      The Selected Candidate {currentCandidate.firstname+' '+currentCandidate.lastname} does NOT have a resume uploaded
+                    </div>    
                 }
                </div>
             }

@@ -2,17 +2,59 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+
+## INSTALLING DEPENDENCIES
 ## Available Scripts
 
 In the project directory, you can run:
 
+### 'yarn install`
+
+Will install all the dependencies for the client application.
+
+## server-side  dependencies:
+While in the project directory,
+
+`cd server`
+
+and ### `npm install` 
+
+to install the dependencies for the json-server(mock server), essentially just `cors`
+
+## RUNNING THE UI CLIENT
 ### `yarn start`
 
-Runs the app in the development mode.\
+Runs the client app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
+ ut The page will reload if you make edits.\
 You will also see any lint errors in the console.
+
+## RUNNING THE MOCK SERVER
+
+In the project's directory:
+
+###`cd server`
+
+and then run ### `npm start`
+
+This will start the mock json-server at ###`http://localhost:5000`
+
+### MOCK SERVER API
+The mock server has the following endpoints:
+`/candidates`-->fetchse all the candidates
+`/candidates/:id`--fetches the candidate with `:id`
+`/resumes` -->fetches all the resumes/CVs
+`/resumes/:id`-->fetches the resume with `:id`
+`/resumes/:id?_embed=comment` or `/resumes/:id/comments` fetches the comments for the resume with id `:id`.
+`/resumes/:id/comments/:commentId` fetches the comment with id `:commentId` for resume with id `:id`.
+`/jobs` fetches all jobs
+`/jobs/:id` fetches job with id `:id`
+`/applications/:id` fetches application with id `:id`
+`/sample_resumes/resume_name` fetches resume named `resume_name` for the purposes of this demo, they are `resume1`,
+                              `resume2` and `resume3`.
+
+Note that since applications and jobs are outside of the scope of this tech assessment, they have been put there as placeholders and don't have Client side supporting UI.
 
 ### `yarn test`
 
@@ -39,32 +81,54 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## ADDITIONAL LIBRARIES USED
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+I don't believe in re-inventing the wheel I don't need to. As it stands, the React developer community has a vast 
+of resources in the form of ready to use components or components that can be quickly customized. This allows for
+rapid prototyping. Instead of wasting hours trying to say implement a calendar or a dropdown, the first thing a
+developer should do is get online and see what he/she can use to save time. There is also the added advantage that,
+if a component is widely used in the community, it has become well-tested(battle tested) as a result, so it's much
+more reliable.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This is a small list of libraries I used with a brief explanation why:
 
-### Code Splitting
+1. fast-deep-equal-->allows deep comparison between two objects. React uses referential comparison or shallow
+   comparison during the diffing, in some cases you want to compare the entire object to make components render
+   correctly.
+2. react-select: An easy to use if not elegant DropDownList component from the community. It's widely used and
+   well tested.
+3. Bootstrap: From Twitter, is a vast trove of CSS to enable easy and consistent styling between different browsers
+   and different formats. It's also not that hard to augment via style or JSS (styled-component or emotion). It provides
+   a very good starting point for your components.
+4. react-pdf: This is an excellent pdf-viewer built ontop of PDF.js the most reliable PDF library in the javascript
+   ecosystem. This one allows use of service workers to enable the pdf to be loaded on a separate thread hence keeping
+   the screen responsive while the document draws. It has excellent support for annotations and pagination.
+5. axios: is one of the most popular REST API libraries that can be used on both the front-end and the back-end.
+   It's extremely easy to use and robust.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## ON REDUX
 
-### Analyzing the Bundle Size
+Due the limited scope of this demo, I didn't find any justification reason to use a state container like redux. The main component PbpApp.jsx manages its own state locally and acts as the container component for all the others with the
+exception  of CandidateList.jsx and ResumeViewer.jsx, for the sake of efficiency, it would be better to load the entire
+tree and store it in the redux store(i.e. a candidate, along with resume, and comments). That would most definitely make it perform faster and we can have a less chatty interface.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## ON REACT Hooks
 
-### Making a Progressive Web App
+The stateful components(those that extend React.Component) could have easily be done with React Hooks(useEffect and
+useState) this was just a question of what I started out with.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+## POSSIBLE IMPROVEMENTS OF THE DEMO
+There are a few improvements that could be made, this is in regard to the Client application not
+the server for the current server is nothing but a mock:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Unit testing using 'react-testing-library'. The best way to develop components is to
+   write the tests first and build them from there. This library makes it exceedingly simple to do some
+   because it allows the developer to write the tests from the perspective of a user.
+2. The components could be made more compatible with smaller screens.
+3. For a larger application, I prefer separate container components from the presentation components. Any side-effects
+   would be done via a dedicate client side service layer. Components would not call the API functions directly,
+   they'd be invoked via redux-thunks or redux-sagas and local state updated. Over and above using thunks for side-effects
+   I also like to use an additional layer of indirection via custom hooks. This is because there are already very
+   many, very well tested hooks out there in the community that provide a high starting point for most of the functionality required in an app. I find that about 80% of the app is common stuff and about 20% is the unique,
+   competitive advantage stuff. What I prefer at the beginning of a project is to do the 80% in about 20% of the time,so that I am left with more time to tackle the unique stuff, more time to experiment and test.

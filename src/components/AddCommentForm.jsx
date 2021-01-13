@@ -11,7 +11,6 @@ export default class AddCommentForm extends Component{
     //ephemeral local state required by the form
     this.state={
      content:'',
-     showForm:false,
     }
   }
   onContentChange=e=>{
@@ -22,10 +21,6 @@ export default class AddCommentForm extends Component{
      this.setState({content:''});
   }
 
-  toggleForm=()=>{
-    this.setState({showForm: !this.state.showForm});
-  }
-
   onCreateComment=e=>{
       //prevent default submit behavior
       e.preventDefault();
@@ -34,17 +29,12 @@ export default class AddCommentForm extends Component{
         content:this.state.content,
         date: new Date()
       });
-
     this.resetForm();
    }
    render(){
-      const {content,showForm}=this.state;
+      const {content}=this.state;
       return(       
         <div>
-          <button className="btn btn-info" onClick={this.toggleForm}>
-             + Add Comment
-          </button>
-        {showForm &&
          <form onSubmit={this.onCreateComment}>
           <input  
             onChange={this.onContentChange}
@@ -52,11 +42,11 @@ export default class AddCommentForm extends Component{
             type="text"
             placeholder="...write a comment"
           />
-          <button className="btn btn-primary" type="submit">
-             Save Comment
+          
+          <button className="btn btn-primary btn-sm" type="submit">
+               + Add
           </button>
          </form>  
-        }
         </div> 
       );
    }

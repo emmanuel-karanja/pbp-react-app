@@ -2,9 +2,10 @@ import React ,{Component} from 'react';
 
 //uses a service worker to allow the document to be loaded in a separate
 //thread to prevent the screen from freezing as the document loads for better UX
-import { Document, Page } from "react-pdf/dist/entry.webpack";
+import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 import PropTypes from 'prop-types';
-import "react-pdf/dist/Page/AnnotationLayer.css";
+//import sampleResume from './resume1.pdf';
+
 
 
 //this simplistic component renders the pdf documents
@@ -33,23 +34,22 @@ export default class PdfViewer extends Component{
    //documentUrl is a required prop string that will be the url string for the document.
    //it'll most likely be fetched from an S3 bucket in a production implementation
    const {documentUrl}=this.props;
-
    return(
     <div>
      <nav>
-       <button onClick={this.toPrevPage}>Prev</button>
-       <button onClick={this.toNextPage}>Next</button>
+       <button className="btn btn-outline-info btm-sm" onClick={this.toPrevPage}>Prev</button> | 
+       <button className="btn btn-outline-info btm-sm" onClick={this.toNextPage}>Next</button>
      </nav>
       <div style={{width: 500}}>
          <Document
            file={documentUrl}
-           onLoadSuccess={this.onDocumentLoadSucess}>
+           onLoadSuccess={this.onDocumentLoadSuccess}>
           <Page pageNumber={pageNumber} width={500}/>
          </Document>
-      </div> 
-      <p>
-          Page {pageNumber} of {numPages}
-      </p>
+         <small className="badge badge-secondary">
+            Page {pageNumber} of {numPages}
+         </small>
+      </div>  
     </div>
    );
   }
