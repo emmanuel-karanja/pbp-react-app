@@ -14,7 +14,7 @@ const CommentList=({comments})=>{
             <br/> {c.content}</li>);
     }
     return(
-        <ul className="list-group" style={{width:500}}>
+        <ul className="list-group">
           {list.length>0? list: null}  
         </ul>
     );
@@ -51,7 +51,8 @@ export default class ResumeViewer extends Component{
 
     //load comments
     loadComments=(resumeId)=>{  
-        axios.get(`http://localhost:5000/resumes/${resumeId}?_embed=comments`)
+        //load comments for the resume, sorted and ordered by date
+        axios.get(`http://localhost:5000/resumes/${resumeId}?_embed=comments&_sort=id&_order=desc`)
              .then(res=>{
                  //let filteredComments=res.data.comments.filter(c=>c.resumeId===resumeId);
                  //do date formatting
@@ -91,7 +92,7 @@ export default class ResumeViewer extends Component{
         //construct the document URL
         const resumeUrl=`http://localhost:5000/sample_resumes/resume${candidate.resumeId}.pdf`;
         return(
-            <div >
+            <div>
                 {hasError && <div className="alert alert-danger" role="alert">
                                   Could not load resume comments, an error occured: {error}
                        </div>}

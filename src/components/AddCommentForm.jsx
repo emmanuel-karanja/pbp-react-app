@@ -42,21 +42,26 @@ export default class AddCommentForm extends Component{
       return(       
         <div>
          <form onSubmit={this.onCreateComment}>
-         
+         {!valid && <div className={valid?"":"alert alert-danger"}>
+             You cannot post an empty comment
+             </div>
+          }
+        <div className="row">
+         <div className="col-sm-4">
           <input style={{padding:'0.2em'}}
             onChange={this.onContentChange}
             value={content}
             type="text"
             placeholder="...write a comment" 
-            className={valid?"card border-info":"flash-error"}
+            className={valid?"card border-info":"border-danger"}
           />
-           {!valid && <div className={valid?"":"alert alert-danger"}>
-             You cannot post an empty comment
-             </div>
-            }
-          <button className="btn btn-primary btn-sm" type="submit" style={{padding:"0.3em"}}>
+          </div>
+           <div className="col-sm-2"><button className="btn btn-primary btn-sm" type="submit" style={{padding:"0.3em"}}>
                + Add
-          </button>
+             </button>
+            </div>
+          </div>
+          <br/>
          </form>  
         </div> 
       );

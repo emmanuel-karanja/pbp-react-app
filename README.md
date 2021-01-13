@@ -40,15 +40,17 @@ You will also see any lint errors in the console.
 
 In the project's directory:
 
-###`cd server`
+### `cd server`
 
 and then run ### `npm start`
 
-This will start the mock json-server at ###`http://localhost:5000`
+This will start the mock json-server at ### `http://localhost:5000`
 
 ### MOCK SERVER API
-The mock server has the following endpoints:
-`/candidates`-->fetchse all the candidates
+
+Given the base URL `http://localhost:5000`, the mock server has the following endpoints:
+
+`/candidates`-->fetchs all the candidates
 `/candidates/:id`--fetches the candidate with `:id`
 `/resumes` -->fetches all the resumes/CVs
 `/resumes/:id`-->fetches the resume with `:id`
@@ -133,7 +135,8 @@ the server for the current server is nothing but a mock:
    write the tests first and build them from there. This library makes it exceedingly simple to do some
    because it allows the developer to write the tests from the perspective of a user.
 2. A much most consistent look and feel especially one that allows devices with different screen sizes.
-3. For a larger application, I prefer to separate container components from the presentation components. I like having  many simple functional/presentation components and a few container/stateful components. Any side-effects
+3. For a larger application, I prefer to separate container components from the presentation components. I like 
+   having  many simple functional/presentation components and a few container/stateful components. Any side-effects
    would be done via a dedicated client side service layer in the form of redux-thunks or redux-sagas. Components would not call the REST API functions directly,
    they'd be invoked via the redux-thunks or redux-sagas and local state updated. The container components would then be
    connected to the redux-state container via connect(from 'react-redux' or via useDispatch and useSelector 'reselect' library could be used in conjunction with 'fast-deep-equal' to query state).  
@@ -142,9 +145,12 @@ the server for the current server is nothing but a mock:
    I also like to use an additional layer of indirection via custom hooks. Each custom hook would encapsulate a given state an side-effect e.g. useLocalStorage is a hook to make it easy to use localStorage for storing say the JWT token(though cookies are much safer this). This is because there are already very
    many, very well tested hooks out there in the community that provide a high starting point for most of the functionality required in an app. I find that about 80% of the app is common house-keeping work and about 20% is the unique,
    competitive advantage stuff. What I prefer at the beginning of a project is to do the 80% in about 20% of the time,so that I am left with more time to tackle the unique stuff, more time to experiment and test it.
-4. Provide CRUD UIs for jobs, applications, questions etc This administrative work could easily be managed by leveraging a component like 'react-admin' to do the dashboard quickly.
-5.  Authentication and authorization. Especially usingg Bearer token stored in the cookie(not in the state object).
-     On the server side all it requires is implementation of authentication middleware and authorization middleware functions. An axios client would be created and the cookie set within it(or the header should the JWT be preferred to be sent via the header).
+4. Provide CRUD UIs for jobs, applications, questions etc This administrative work could easily be managed by 
+   leveraging a component like 'react-admin' to do the dashboard quickly.
+5.  Authentication and authorization. Especially usingg Bearer token stored in the cookie(not in the redux state object).
+    On the server side all it requires is implementation of authentication middleware and authorization middleware functions. An axios client would be created and the cookie set within it(or the header should the JWT be preferred to be sent via the header).
 6. String constants e.g. URLs would be stored in 'env' and a config object used to load them. Alternatively, they
    can be stored in the form of  const BASE_URL='http://localhost:5000' etc, so that if the URL changes it won't
    affect the code much.
+7. Use a more eloborate way to handle form local state and form field validation. In my case, I prefer to use `formik`
+   form local state management and `yup` for field validation, they work very well together.

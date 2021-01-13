@@ -37,7 +37,7 @@ export default class PdfViewer extends Component{
    return(
     <div>
      <nav>
-       <button className="btn btn-outline-info btm-sm" onClick={this.toPrevPage}>Prev</button> | 
+       <button className="btn btn-outline-info btm-sm" onClick={this.toPrevPage}>Prev</button>  
        <button className="btn btn-outline-info btm-sm" onClick={this.toNextPage}>Next</button>
      </nav>
       <div style={{width: 500}}>

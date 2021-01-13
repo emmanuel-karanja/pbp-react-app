@@ -54,15 +54,15 @@ export default class PbpApp extends Component{
         padding:'0.3em'
      }
      return(
-         <div className="card border-success mb-3 justify-center" style={containerStyle}>
-            <div className ="dark"><h3 className="text-success mb-3">Pbp React Tech-Assessment App</h3></div>
+         <div className="card border-info mb-3 justify-center" style={containerStyle}>
+            <div className ="dark"><h3 className="text-info mb-1">Pbp React Tech-Assessment App</h3></div>
             <hr/>
          {hasError && <div className="alert alert-danger" role="alert">
                          Could not load candidates error: {error}
                       </div>}
           {options && !hasError && <div style={{width:300}}>
-            <span className="text-success">Candidate:</span>
-            <Select className="text-success mb-4" options={options}
+            <span className="text-info">Candidate:</span>
+            <Select className="text-info mb-4" options={options}
              onChange={this.handleSelection}
              defaultValue={{label: "select a candidate..."}}
              />
@@ -74,7 +74,7 @@ export default class PbpApp extends Component{
                 {currentCandidate.resumeId?
                    <ResumeViewer candidate={currentCandidate}/>
                     :
-                    <div className="alert alert-info mb-3 text-info" role="alert">
+                    <div className="alert alert-warning mb-3 text-warning" role="alert">
                       The Selected Candidate {currentCandidate.firstname+' '+currentCandidate.lastname} does NOT have a resume uploaded
                     </div>    
                 }
