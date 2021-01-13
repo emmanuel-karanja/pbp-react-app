@@ -13,16 +13,17 @@ export default class AddCommentForm extends Component{
      content:'',
      showForm:false,
     }
+  }
   onContentChange=e=>{
     this.setState({content: e.target.value});
   }
 
-  resetForm(){
+  resetForm=()=>{
      this.setState({content:''});
   }
 
   toggleForm=()=>{
-    this.setState({showForm: !showForm});
+    this.setState({showForm: !this.state.showForm});
   }
 
   onCreateComment=e=>{
@@ -36,30 +37,33 @@ export default class AddCommentForm extends Component{
 
     this.resetForm();
    }
-
    render(){
-      return(
-       <button className="btn btn-info" onClick={this.toggleForm}>
-            + Add Comment
-        </button>
-       {this.state.showForm &&
+      const {content,showForm}=this.state;
+      return(       
+        <div>
+          <button className="btn btn-info" onClick={this.toggleForm}>
+             + Add Comment
+          </button>
+        {showForm &&
          <form onSubmit={this.onCreateComment}>
           <input  
             onChange={this.onContentChange}
-            value={this.state.content}
+            value={content}
             type="text"
             placeholder="...write a comment"
           />
           <button className="btn btn-primary" type="submit">
-           Save Comment
+             Save Comment
           </button>
-         </form>
+         </form>  
         }
-     );
-    }
+        </div> 
+      );
+   }
+   
 }
 
 ///the mandatory createComment prop function
 AddCommentForm.propTypes={
-   createComment: PropTypes.func.isRequired,
+  createComment:PropTypes.func.isRequired,
 }

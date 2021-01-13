@@ -1,61 +1,52 @@
 import React ,{Component} from 'react';
-
-//uses a service worker to allow the document to be loaded in a separate
-//thread to prevent the screen from freezing as the document loads for better UX
-import { Document, Page } from "react-pdf/dist/entry.webpack";
 import PropTypes from 'prop-types';
-import "react-pdf/dist/Page/AnnotationLayer.css";
+import PdfViewer from './PdfViewer';
+import AddCommentForm from './AddCommentForm';
+import axios from 'axios';
 
 
-//this component renders the pdf format CV/resume
-//it has two nav-style button because most CVs will often be more than one
-//page. The buttons allows easy navigation from page to page
-
+//this is a container for the PdfViewer and the AddCommentForm
 export default class ResumeViewer extends Component{
-   constructor(props){
-   super(props);
-   this.state={numPages:null, pageNumber:1}; 
- }
+    constructor(props){
+        super(props);
+        this.state={
+            hasError:false,
+            error:""
+        }
+    }
+    addComment=(comment)=>{
+        const {candidate}=this.props;
+        let newComment={...comment, resumeId:candidate.resumeId};
+       axios.post('http://localhost:5000/comments',newComment)
+            .then(res=>{
+                //comment added successfully
+                this.setState({hasError:false})
+                alert(`Comment added to resume of ${candidate.firstname+' '+candidate.lastname}`)
+            }).catch(error=>{
+                console.log(error);
+                this.setState({hasError:true,error:error.message});
+            });
+    }
 
-  onDocumentLoadSuccess=({numPages})=>{
-     this.setState({numPages});
-   }
-
-  toPrevPage=()=>{
-     this.setState(state=>({pageNumber: this.state.pageNumber-1}));
-  }
-  toNextPage=()=>{
-    this.setState(state=>({pageNumber:this.state.pageNumber+1}));
-  }
-
-  render(){
-   const {numPages,pageNumber}=this.state;
-   //resume is a required prop string that will be a url string to the document.
-   //it'll most likely be fetched from an S3 bucket in a production implementation
-   const {resumeUrl}=this.props;
-
-   return(
-    <div>
-     <nav>
-       <button onClick={this.toPrevPage}>Prev></button>
-       <button onClick={this.toNextPage}>Next></button>
-     </nav>
-      <div style={{width: 500}}>
-         <Document
-           file={resumeUrl}
-           onLoadSuccess={this.onDocumentLoadSucess}>
-          <Page pageNumber={pageNumber} width={500}/>
-         </Document>
-      </div> 
-      <p>
-          Page {pageNumber} of {numPages}
-      </p>
-    </div>
-   );
-  }
+    render(){
+        const {candidate}=this.props;
+        const {hasError,error}=this.state;
+        //construct the URL, this is a hack for the purposes of this simple demo
+        const resumeUrl=`http://localhost/sample_resumes/resume${candidate.resumeId}.pdf`;
+        return(
+            <div>
+                {hasError && <div>Could not addd comment error occurred: {error}</div>}
+                {candidate && <div>
+                    <h2>Resume for <strong>{candidate.firstname+' '+candidate.lastname}</strong></h2>
+                    <PdfViewer documentUrl={resumeUrl}/>
+                    <AddCommentForm createComment={this.addComment}/>
+                    </div>
+                }
+            </div>
+        );
+    }
 }
 
-//prop types for prop validation
 ResumeViewer.propTypes={
-    resumeUrl: PropTypes.string.isRequired,
- }
+    candidate:PropTypes.object.isRequired,
+}

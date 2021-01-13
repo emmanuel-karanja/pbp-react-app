@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import Select from 'react-select'
+import ResumeViewer from './ResumeViewer';
 
 
 
@@ -15,8 +16,7 @@ export default class CandidateDropDownList extends Component{
        hasError:false,
        currentCandidate:null
     }
-    //bindings
-    this.handleSelection=this.handleSelection.bind(this);
+    
     console.log('candidate drop down');
  }
 
@@ -33,7 +33,7 @@ export default class CandidateDropDownList extends Component{
          });
  }
 
- handleSelection(selectedOption){
+ handleSelection=(selectedOption)=>{
     this.setState({currentSelectedId: selectedOption.value});
     let candidate=this.state.candidates.find(c=>c.id===selectedOption.value);
     this.setState({currentCandidate: candidate});
@@ -61,7 +61,7 @@ export default class CandidateDropDownList extends Component{
             {currentSelectedId === null? null : 
                <div>
                 {currentCandidate.resumeId?
-                   <p>Resume for {currentCandidate.firstname+' '+currentCandidate.lastname} will appear here</p>
+                   <ResumeViewer candidate={currentCandidate}/>
                     :
                    <p>The Selected Candidate {currentCandidate.firstname+' '+currentCandidate.lastname} does NOT have a resume uploaded</p>       
                 }

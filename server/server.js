@@ -2,13 +2,13 @@ const jsonServer=require('json-server');
 const server=jsonServer.create();
 const path=require('path');
 const router=jsonServer.router(path.join(__dirname,'api.json'));
-const middlewares=jsonServer.defaults();
-const cors=require('cors');
-const express=require('express');
 
-//serves, in this case static files for resumes/
-//server.use('/static',express.static(path.join(__dirname,'public')));
-//configure server to accept all origins.
+//configure static file serving. 
+const middlewares=jsonServer.defaults({static: './public'});
+const cors=require('cors');
+
+
+//configure cors first
 server.use(cors());
 server.use(middlewares);
 server.use(jsonServer.bodyParser);
