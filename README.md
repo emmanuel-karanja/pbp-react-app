@@ -2,6 +2,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## GET STARTED
+Clone the repo from github and extract the files to your preferred working directory for which you have rights to.
+You'll need to open at least 2 commandline windows to be able to use application.
+
+Navigate to the project directory via the commandline.
+
 
 ## INSTALLING DEPENDENCIES
 ## Available Scripts

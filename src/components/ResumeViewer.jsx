@@ -11,7 +11,7 @@ const CommentList=({comments})=>{
     var list=[];
     if(Array.isArray(comments)){
         list=comments.map(c=><li key={c.id} className="list-group-item list-group-item-info">
-            <small className="badge badge-info">{c.date.toString()}</small>
+            <small>posted on: <span className="badge badge-secondary"> {c.date.toString()}</span></small>
             <br/> {c.content}</li>);
     }
     return(
@@ -55,7 +55,14 @@ export default class ResumeViewer extends Component{
         axios.get(`http://localhost:5000/resumes/${resumeId}?_embed=comments`)
              .then(res=>{
                  //let filteredComments=res.data.comments.filter(c=>c.resumeId===resumeId);
-                 this.setState({comments:res.data.comments,hasError:false});   
+                 //do date formatting
+                 var comments=res.data.comments;
+                 comments.forEach(comment=>{
+                     if(comment.date){
+                         comment.date=new Date(comment.date);
+                     }
+                 });
+                 this.setState({comments:comments,hasError:false});   
              }).catch(error=>{
                  this.setState({hasError:true,error:error.message});
                  console.log(error);
