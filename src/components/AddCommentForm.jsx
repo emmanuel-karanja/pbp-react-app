@@ -11,6 +11,7 @@ export default class AddCommentForm extends Component{
     //ephemeral local state required by the form
     this.state={
      content:'',
+     valid:true
     }
   }
   onContentChange=e=>{
@@ -18,13 +19,17 @@ export default class AddCommentForm extends Component{
   }
 
   resetForm=()=>{
-     this.setState({content:''});
+     this.setState({content:'',valid:true});
   }
 
   onCreateComment=e=>{
       //prevent default submit behavior
       e.preventDefault();
       //use the prop function to make the call, let the container component handle the API call
+      if(this.state.content ===""){
+        this.setState({valid:false});
+        return;
+      }
       this.props.createComment({
         content:this.state.content,
         date: new Date()
@@ -32,18 +37,24 @@ export default class AddCommentForm extends Component{
     this.resetForm();
    }
    render(){
-      const {content}=this.state;
+      const {content,valid}=this.state;
+      
       return(       
         <div>
          <form onSubmit={this.onCreateComment}>
-          <input  
+         
+          <input style={{padding:'0.2em'}}
             onChange={this.onContentChange}
             value={content}
             type="text"
-            placeholder="...write a comment"
+            placeholder="...write a comment" 
+            className={valid?"card border-info":"flash-error"}
           />
-          
-          <button className="btn btn-primary btn-sm" type="submit">
+           {!valid && <div className={valid?"":"alert alert-danger"}>
+             You cannot post an empty comment
+             </div>
+            }
+          <button className="btn btn-primary btn-sm" type="submit" style={{padding:"0.3em"}}>
                + Add
           </button>
          </form>  

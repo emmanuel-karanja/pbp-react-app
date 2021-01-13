@@ -7,11 +7,10 @@ import equal from 'fast-deep-equal';
 
 
 const CommentList=({comments})=>{
-    console.log(`comment list comments: ${comments}`);
     var list=[];
     if(Array.isArray(comments)){
-        list=comments.map(c=><li key={c.id} className="list-group-item list-group-item-info">
-            <small>posted on: <span className="badge badge-secondary"> {c.date.toString()}</span></small>
+        list=comments.map(c=><li key={c.id} className="list-group-item list-group-item-info text-info">
+            <small>posted at: <span className="badge badge-secondary"> {c.date.toString()}</span></small>
             <br/> {c.content}</li>);
     }
     return(
@@ -92,15 +91,17 @@ export default class ResumeViewer extends Component{
         //construct the document URL
         const resumeUrl=`http://localhost:5000/sample_resumes/resume${candidate.resumeId}.pdf`;
         return(
-            <div>
+            <div >
                 {hasError && <div className="alert alert-danger" role="alert">
                                   Could not load resume comments, an error occured: {error}
                        </div>}
-                {candidate && <div>
-                    <h2 className="mb-1">Resume for <strong>{candidate.firstname+' '+candidate.lastname}</strong></h2>
+                {candidate && <div className="border-info">
+                    <h5 className="mb-4 text-info">Resume for <strong>{candidate.firstname+' '+candidate.lastname}</strong></h5>
                     <PdfViewer documentUrl={resumeUrl}/>
-                    <p className="mb-1">Comments </p>
+                    <hr className="border-info"/>
+                    <p className="mb-1 text-info">Comments</p>
                      {comments && <CommentList comments={comments}/>}
+                     <br/>
                     <AddCommentForm createComment={this.addComment}/>
                     </div>
                 }

@@ -167,6 +167,18 @@
       "date": "2021-01-13T12:50:31.473Z",
       "resumeId": 3,
       "id": 21
+    },
+    {
+      "content": "comment",
+      "date": "2021-01-13T16:13:19.131Z",
+      "resumeId": 1,
+      "id": 22
+    },
+    {
+      "content": "non-empty comment..",
+      "date": "2021-01-13T16:47:37.443Z",
+      "resumeId": 2,
+      "id": 23
     }
   ]
 }

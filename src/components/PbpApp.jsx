@@ -46,18 +46,25 @@ export default class PbpApp extends Component{
      //create an options key-value pairs array to be used with the
      //select component.
      const options=candidates.map(c=>{ return{value:c.id,label: c.firstname+' '+c.lastname}});
-     return(
-         <div className="container justify-content-center">
-            <div className ="dark"><h1>Pbp React Tech-Assessment App</h1></div>
 
+     //inline style for this case
+     const containerStyle={
+        margin: 'auto',
+        width:'60%',
+        padding:'0.3em'
+     }
+     return(
+         <div className="card border-success mb-3 justify-center" style={containerStyle}>
+            <div className ="dark"><h3 className="text-success mb-3">Pbp React Tech-Assessment App</h3></div>
+            <hr/>
          {hasError && <div className="alert alert-danger" role="alert">
                          Could not load candidates error: {error}
                       </div>}
           {options && !hasError && <div style={{width:300}}>
-            Candidate:
-            <Select options={options}
+            <span className="text-success">Candidate:</span>
+            <Select className="text-success mb-4" options={options}
              onChange={this.handleSelection}
-             defaultValue={{label: "--Select A Candidate--"}}
+             defaultValue={{label: "select a candidate..."}}
              />
           </div>
           }
@@ -67,7 +74,7 @@ export default class PbpApp extends Component{
                 {currentCandidate.resumeId?
                    <ResumeViewer candidate={currentCandidate}/>
                     :
-                    <div className="alert alert-info" role="alert">
+                    <div className="alert alert-info mb-3 text-info" role="alert">
                       The Selected Candidate {currentCandidate.firstname+' '+currentCandidate.lastname} does NOT have a resume uploaded
                     </div>    
                 }
