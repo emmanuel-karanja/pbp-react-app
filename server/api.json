@@ -239,6 +239,12 @@
       "date": "2021-01-14T12:56:37.169Z",
       "resumeId": 3,
       "id": 40
+    },
+    {
+      "content": "additional comment",
+      "date": "2021-01-14T17:05:24.864Z",
+      "resumeId": 2,
+      "id": 41
     }
   ]
 }
