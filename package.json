@@ -13,6 +13,7 @@
     "popper.js": "^1.16.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
+    "react-expanding-textarea": "^2.3.1",
     "react-pdf": "^5.1.0",
     "react-scripts": "4.0.1",
     "react-select": "^3.1.1",

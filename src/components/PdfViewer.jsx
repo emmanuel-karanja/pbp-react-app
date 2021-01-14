@@ -15,11 +15,15 @@ import PropTypes from 'prop-types';
 export default class PdfViewer extends Component{
    constructor(props){
    super(props);
-   this.state={numPages:null, pageNumber:1}; 
+   this.state={
+      numPages:null, 
+      pageNumber:1,
+      prevEnabled:true,
+      nextEnabled:true}; 
  }
 
   onDocumentLoadSuccess=({numPages})=>{
-     this.setState({numPages});
+     this.setState({numPages:numPages});
    }
 
   toPrevPage=()=>{
@@ -30,21 +34,24 @@ export default class PdfViewer extends Component{
   }
 
   render(){
-   const {numPages,pageNumber}=this.state;
+   const {numPages,pageNumber,nextEnabled,prevEnabled}=this.state;
    //documentUrl is a required prop string that will be the url string for the document.
    //it'll most likely be fetched from an S3 bucket in a production implementation
    const {documentUrl}=this.props;
+   const docStyle={
+      width:'100%'
+   }
    return(
     <div>
      <nav>
-       <button className="btn btn-outline-info btm-sm" onClick={this.toPrevPage}>Prev</button>  
-       <button className="btn btn-outline-info btm-sm" onClick={this.toNextPage}>Next</button>
+       <button className="btn btn-outline-info btm-sm" onClick={this.toPrevPage} disabled={!prevEnabled}>Prev</button>  
+       <button className="btn btn-outline-info btm-sm" onClick={this.toNextPage} disabled={!nextEnabled}>Next</button>
      </nav>
-      <div style={{width: 500}}>
+      <div style={{width: '100%'}}>
          <Document
            file={documentUrl}
            onLoadSuccess={this.onDocumentLoadSuccess}>
-          <Page pageNumber={pageNumber} width={500}/>
+          <Page pageNumber={pageNumber}/>
          </Document>
          <small className="badge badge-secondary">
             Page {pageNumber} of {numPages}

@@ -9115,6 +9115,14 @@ react-error-overlay@^6.0.8:
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.8.tgz#474ed11d04fc6bda3af643447d85e9127ed6b5de"
   integrity sha512-HvPuUQnLp5H7TouGq3kzBeioJmXms1wHy9EGjz2OURWBp4qZO6AfGEcnxts1D/CbwPLRAgTMPCEgYhA3sEM4vw==
 
+react-expanding-textarea@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/react-expanding-textarea/-/react-expanding-textarea-2.3.1.tgz#1aa99509be216efc86e74ec2d9eb5c65bd8470d1"
+  integrity sha512-nomhZjSPuia2hM8E9LKr4XsphXPDz968gHCWXaHNYjPLUQr12rATP0ghxqF7Vt+rcsUJPkFj+oOfc6BQIMAaWA==
+  dependencies:
+    react-with-forwarded-ref "^0.3.3"
+    tslib "^2.0.3"
+
 react-input-autosize@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-2.2.2.tgz#fcaa7020568ec206bc04be36f4eb68e647c4d8c2"
@@ -9240,6 +9248,13 @@ react-transition-group@^4.3.0:
     dom-helpers "^5.0.1"
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
+
+react-with-forwarded-ref@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-with-forwarded-ref/-/react-with-forwarded-ref-0.3.3.tgz#e5842192b4c1f1c668926000facca1ec18f446f6"
+  integrity sha512-rWIxXwSRxUBtxpVy9WLUjPutAtiNohVbz60FZeVvNBiVOQdZ/ll0htaKJmc3KUsd4JsypsWyfuoOba/Ho18PvA==
+  dependencies:
+    tslib "^2.0.3"
 
 react@^17.0.1:
   version "17.0.1"
@@ -10733,6 +10748,11 @@ tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==
+
+tslib@^2.0.3:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.1.0.tgz#da60860f1c2ecaa5703ab7d39bc05b6bf988b97a"
+  integrity sha512-hcVC3wYEziELGGmEEXue7D75zbwIIVUMWAVbHItGPx0ziyXxrOMQx4rQEVEV45Ut/1IotuEvwqPopzIOkDMf0A==
 
 tsutils@^3.17.1:
   version "3.17.1"

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import Textarea from 'react-expanding-textarea'
 
 //a very simple form for adding comments to Resumes, but applicable elsewhere
 //for a more advanced form, formik and yup would be used for validation and handling
@@ -11,7 +12,7 @@ export default class AddCommentForm extends Component{
     //ephemeral local state required by the form
     this.state={
      content:'',
-     valid:true
+     valid:true,
     }
   }
   onContentChange=e=>{
@@ -40,7 +41,12 @@ export default class AddCommentForm extends Component{
    }
    render(){
       const {content,valid}=this.state;
-      
+      //inline style to allow longer comments
+      const inputStyle={
+         padding:'0.2em',
+         multiline:true,
+         width: '100%'
+      }
       return(       
         <div>
          <form onSubmit={this.onCreateComment}>
@@ -49,12 +55,11 @@ export default class AddCommentForm extends Component{
              </div>
           }
         <div className="row">
-         <div className="col-sm-4">
-          <input style={{padding:'0.2em'}}
+         <div className="col-sm-6">
+          <Textarea style={inputStyle}
             onChange={this.onContentChange}
             value={content}
-            type="text"
-            placeholder="...write a comment" 
+            placeholder="write a comment...." 
             className={valid?"card border-info":"card border-danger"}
           />
           </div>
