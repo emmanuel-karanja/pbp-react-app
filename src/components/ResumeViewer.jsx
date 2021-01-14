@@ -24,6 +24,11 @@ CommentList.propTypes={
     comments:PropTypes.array.isRequired,
 }
 
+//this is a helper function to help sort the comments by date
+const sortByDate = (a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf();
+
+
+
 //this is a container for the PdfViewer and the AddCommentForm
 export default class ResumeViewer extends Component{
     constructor(props){
@@ -63,7 +68,9 @@ export default class ResumeViewer extends Component{
                          comment.date=new Date(comment.date);
                      }
                  });
-                 this.setState({comments:comments,hasError:false});   
+                 //there is a problem with the json-server sorting so  this is a fallback..
+                 var sortedComments=comments.sort(sortByDate);
+                 this.setState({comments:sortedComments,hasError:false});   
              }).catch(error=>{
                  this.setState({hasError:true,error:error.message});
                  console.log(error);

@@ -2,7 +2,9 @@ import React ,{Component} from 'react';
 
 //uses a service worker to allow the document to be loaded in a separate
 //thread to prevent the screen from freezing as the document loads for better UX
+
 import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
+import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import PropTypes from 'prop-types';
 //import sampleResume from './resume1.pdf';
 
@@ -11,6 +13,16 @@ import PropTypes from 'prop-types';
 //this simplistic component renders the pdf documents
 //it has two nav-style button because most pdf docs will often be more than one
 //page. The buttons allows easy navigation from page to page
+
+const DocLoading=(props)=>{
+  return(
+   <div className="d-flex justify-content-center">
+     <div className="spinner-border" role="status">
+      <strong>Loading resume...</strong>
+    </div>
+  </div>
+  );
+}
 
 export default class PdfViewer extends Component{
    constructor(props){
@@ -38,9 +50,7 @@ export default class PdfViewer extends Component{
    //documentUrl is a required prop string that will be the url string for the document.
    //it'll most likely be fetched from an S3 bucket in a production implementation
    const {documentUrl}=this.props;
-   const docStyle={
-      width:'100%'
-   }
+   
    return(
     <div>
      <nav>
