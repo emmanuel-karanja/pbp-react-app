@@ -109,10 +109,9 @@ export default class ResumeViewer extends Component{
                     <PdfViewer documentUrl={resumeUrl}/>
                     <hr className="border-info"/>
                     <p className="mb-1 text-info">Comments</p>
-                    <AddCommentForm createComment={this.addComment}/>
-                    <br/>
                      {comments && <CommentList comments={comments}/>}
-                     
+                     <br/>
+                    <AddCommentForm createComment={this.addComment}/>
                     </div>
                 }
                
