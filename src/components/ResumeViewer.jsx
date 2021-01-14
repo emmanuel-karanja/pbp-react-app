@@ -44,6 +44,7 @@ export default class ResumeViewer extends Component{
     //make sure to reload the comments when the selected candidate changes
     componentDidUpdate(prevProps){
         const{candidate}=this.props;
+        //does a deep comparison of candidate prop 
          if(!equal(candidate,prevProps.candidate)){
              this.loadComments(candidate.resumeId);
          }

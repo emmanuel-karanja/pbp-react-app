@@ -34,6 +34,8 @@ export default class AddCommentForm extends Component{
         content:this.state.content,
         date: new Date()
       });
+
+      //clear form to prevent submitting the same comment twice
     this.resetForm();
    }
    render(){
@@ -53,7 +55,7 @@ export default class AddCommentForm extends Component{
             value={content}
             type="text"
             placeholder="...write a comment" 
-            className={valid?"card border-info":"border-danger"}
+            className={valid?"card border-info":"card border-danger"}
           />
           </div>
            <div className="col-sm-2"><button className="btn btn-primary btn-sm" type="submit" style={{padding:"0.3em"}}>
